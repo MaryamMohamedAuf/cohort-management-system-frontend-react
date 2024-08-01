@@ -1,0 +1,50 @@
+/* ListCohort.css */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #f4f4f4;
+}
+
+.button {
+    border-radius: 25px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #FF5F1F;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+}
+
+.button:hover {
+    border: 1px solid orange;
+}
+
+.button a {
+    text-decoration: none;
+    color: white;
+}
+
+.button a:hover {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: orange;
+}
+
+a:hover {
+    color: orange;
+}

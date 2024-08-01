@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import axiosInstance from './axiosInstance'; 
+
 
 
 const ListFollowup = () => {        
@@ -34,7 +36,7 @@ const navigate = useNavigate();
 
     const deleteFollowupSurvey = (id) => {
         if (window.confirm('Are you sure you want to delete this follow-up survey?')) {
-            axios.delete(`http://localhost:8000/api/followupSurvey/${id}`)
+            axiosInstance.delete(`http://localhost:8000/api/followupSurvey/${id}`)
                 .then(() => {
                     fetchFollowupSurveys(); // Refresh the list after deletion
                 })

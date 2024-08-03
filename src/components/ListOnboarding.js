@@ -44,6 +44,7 @@ const ListOnboarding = () => {
                 <thead>
                     <tr>
                         <th>Applicant Name</th>
+                        <th>Company Name</th>
                         <th>Cohort Tag</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -55,6 +56,7 @@ const ListOnboarding = () => {
                     {onboardingSurveys.map(onboardingSurvey => (
                         <tr key={onboardingSurvey.id}>
                             <td>{onboardingSurvey.survey.applicant_name}</td>
+                            <td>{onboardingSurvey.survey.company_name}</td>
                             <td>{onboardingSurvey.survey.cohort_tag}</td>
                             <td>{onboardingSurvey.email}</td>
                             <td>{onboardingSurvey.phone}</td>

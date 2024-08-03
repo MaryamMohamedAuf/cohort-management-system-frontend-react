@@ -91,7 +91,7 @@ const EditFollowup = () => {
                     />
                 </div> 
                 <div className="mb-3">
-                    <label htmlFor="cohort_tag" className="form-label">cohort tag:</label>
+                    <label htmlFor="cohort_tag" className="form-label">Cohort Tag:</label>
                     <input
                         type="text"
                         className="form-control"

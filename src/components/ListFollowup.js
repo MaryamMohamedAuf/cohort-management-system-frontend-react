@@ -3,8 +3,6 @@ import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
-
-
 const ListFollowup = () => {        
     const { cohortId } = useParams();
 const navigate = useNavigate();
@@ -53,6 +51,7 @@ const navigate = useNavigate();
                 <thead>
                     <tr>
                         <th>Applicant Name</th>
+                        <th>company Name</th>
                         <th>Cohort Tag</th>
                         <th>Survey Tag</th>
                         <th>Date</th>
@@ -64,7 +63,7 @@ const navigate = useNavigate();
                     {followupSurveys.map(followupSurvey => (
                         <tr key={followupSurvey.id}>
                             <td>{followupSurvey.survey.applicant_name}</td>
-
+                            <td>{followupSurvey.survey.company_name}</td>
                             <td>{followupSurvey.survey.cohort_tag}</td>
                             <td>{followupSurvey.survey_tag}</td>
                             <td>{followupSurvey.date}</td>

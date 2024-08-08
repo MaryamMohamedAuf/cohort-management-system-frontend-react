@@ -37,7 +37,7 @@ const ListRound2 = () => {
         <div className="container">
             <h2 className="my-4">Round 2 for Cohort ID: {cohortId}</h2>
             <div className="table-responsive">
-                <table className="table table-striped">
+                <table className="table table-striped" >
                     <thead>
                         <tr>
                         <th>First Name</th>
@@ -50,7 +50,6 @@ const ListRound2 = () => {
                             <th>Business Model</th>
                             <th>Solution</th>
                             <th>Revenue Generated</th>
-                            <th>Funding Received</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -67,12 +66,14 @@ const ListRound2 = () => {
                                 <td>{item.business_model || 'N/A'}</td>
                                 <td>{item.solution || 'N/A'}</td>
                                 <td>{item.revenue_generated || 'N/A'}</td>
-                                <td>{item.funding_received || 'N/A'}</td>
                                 <td>
                                     <Link to={`/round2/edit/${item.id}`} className="btn btn-secondary btn-sm me-2">Edit</Link>
                                     <button onClick={() => deleteRound2(item.id)} className="btn btn-danger btn-sm m-2">Delete</button>
                                     <Link to={`/applicant/${item.applicant_id}`} className="btn btn-secondary btn-sm">See applicant details</Link>
+                                    <Link to={`/comments/create/${item.applicant_id}/${item.id}/round2`} className="btn btn-secondary btn-sm m-2">Provide feedback about this applicant in this round</Link>
 
+                                    <Link to={`/comments/${item.applicant_id}`} className="btn btn-secondary btn-sm m-2">See all applicant comments in each round for each admin</Link>
+                                
                                 </td>
                             </tr>
                         ))}

@@ -62,7 +62,9 @@ const ListRound1 = () => {
                                     <Link to={`/round1/edit/${item.id}`} className="btn btn-secondary btn-sm me-2">Edit</Link>
                                     <button onClick={() => deleteRound1(item.id)} className="btn btn-danger btn-sm m-2">Delete</button>
                                     <Link to={`/applicant/${item.applicant_id}`} className="btn btn-secondary btn-sm">See applicant details</Link>
+                                    <Link to={`/comments/create/${item.applicant_id}/${item.id}/round1`} className="btn btn-secondary btn-sm m-2">Provide feedback about this applicant in this round</Link>
 
+                                    <Link to={`/comments/${item.applicant_id}`} className="btn btn-secondary btn-sm m-2">See all applicant comments in each round for each admin</Link>
                                 </td>
                             </tr>
                         ))}

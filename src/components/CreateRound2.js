@@ -481,19 +481,10 @@ const CreateRound2 = () => {
                 console.log('API Response:', response.data);
                    setSuccessMessage('data saved successfully will get in touch with you soon')
 
-                // const newCohortId = response.data.applicant.cohort_id; // assuming the API response contains the cohort_id
-                
-                // if (newCohortId) {
-                //    // navigate(`/round2/${newCohortId}`); // Navigate to round2/newCohortId
-
-                // } else {
-                //     console.error('Cohort ID is missing in the response');
-                // }
-
             })
             .catch(error => {
                 console.error('Error saving data:', error);
-                setErrorMessage('There was an error saving the data. Please please make sure all required fields are filled.');
+                setErrorMessage('There was an error saving the data. Please please make sure all required fields are filled, and company name is exactly the same as the one entered in round1');
 
             });
     };
@@ -1121,7 +1112,7 @@ We're hoping to understand the effects of the COVID pandemic on Hawaii’s busin
                         
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary m-3">Submit</button>
             </form>
             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}

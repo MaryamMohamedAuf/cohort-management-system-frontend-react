@@ -40,7 +40,8 @@ import CreateRound2 from './components/CreateRound2.js';
 
 import Round1Details from './components/Round1Details.js';
 import Round2Details from './components/Round2Details.js';
-
+import CreateComment from './components/CreateComment.js';
+import ListComment from './components/ListComment.js';
 import DashboardRedirect from './components/DashboardRedirect.js';
 
 const Login = lazy (() => import ( './components/Login.js'));
@@ -70,6 +71,9 @@ const Login = lazy (() => import ( './components/Login.js'));
          <Route path="/admins/register" element={<CreateAdmin />} />
 
          <Route path="/admins/login" element={<Login />} />
+
+         <Route path="/comments/create/:applicant_id/:round_id/:round_type" element={<CreateComment />} />
+         <Route path="/comments/:id" element={<ListComment />} />
 
 
          <Route path="/cohorts/create" element={<CreateCohort />} />

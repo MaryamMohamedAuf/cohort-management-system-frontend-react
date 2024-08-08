@@ -12,7 +12,7 @@ const ApplicantDetails = () => {
     useEffect(() => {
         axiosInstance.get(`http://localhost:8000/api/applicant/details/${id}`)
             .then(response => {
-                console.log('API Response:', response.data); // Debugging: Log the API response
+                console.log('API Response:', response.data);
                 setApplicantData(response.data);
                 setLoading(false);
             })

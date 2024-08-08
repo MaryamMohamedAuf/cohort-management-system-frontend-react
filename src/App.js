@@ -43,7 +43,7 @@ import Round2Details from './components/Round2Details.js';
 import CreateComment from './components/CreateComment.js';
 import ListComment from './components/ListComment.js';
 import DashboardRedirect from './components/DashboardRedirect.js';
-
+import EditAdmin from './components/EditAdmin.js';
 const Login = lazy (() => import ( './components/Login.js'));
 // import Register from './js/Pages/Auth/Register';
 // import ForgotPassword from './js/Pages/Auth/ForgotPassword';
@@ -69,7 +69,7 @@ const Login = lazy (() => import ( './components/Login.js'));
              */}
          <Route path='/' element = {<Login/>} />
          <Route path="/admins/register" element={<CreateAdmin />} />
-
+         <Route path="/admin/edit/:userId" element={<EditAdmin />} />
          <Route path="/admins/login" element={<Login />} />
 
          <Route path="/comments/create/:applicant_id/:round_id/:round_type" element={<CreateComment />} />

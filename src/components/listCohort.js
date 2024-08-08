@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axiosInstance from './axiosInstance'; 
 
 const ListCohort = () => {
     const [cohorts, setCohorts] = useState([]);
@@ -60,7 +61,7 @@ const [error, setError] = useState(null);
 
     const deleteCohort = (id) => {
         if (window.confirm('Are you sure you want to delete this cohort?')) {
-            axios.delete(`http://localhost:8000/api/cohorts/${id}`)
+            axiosInstance.delete(`http://localhost:8000/api/cohorts/${id}`)
                 .then(() => {
                     fetchCohorts(); // Refresh the list after deletion
                 })
@@ -69,9 +70,26 @@ const [error, setError] = useState(null);
                 });
         }
     };
-
+    const userId = localStorage.getItem('userId');    
+    console.log('Retrieved userId:', userId);
+    const deleteAdmin = (id) => {
+        if (window.confirm('Are you sure you want to delete your account?')) {
+            axiosInstance.delete(`http://localhost:8000/api/admin/${id}`)
+                .then(() => {
+                    fetchCohorts(); // Refresh the list after deletion
+                })
+                .catch(error => {
+                    console.error('Error deleting cohort:', error);
+                });
+        }
+    };
     return (
-        <div className="container">
+        <div className="container mt-3">
+             <Link to="/cohorts/create" className="btn btn-secondary">Create New Cohort</Link>
+            <Link to="/admins/register" className="btn btn-secondary m-2">Add New Admin</Link>
+            <Link to={`/admin/edit/${userId}`} className="btn btn-secondary m-2">Edit Your Info</Link>
+            <button onClick={() => deleteAdmin(userId)} className="btn btn-danger btn-sm">delete your account?</button>
+
             <h2 className="my-4">List of Cohorts</h2>
             <table className="table table-striped">
                 <thead>
@@ -97,7 +115,8 @@ const [error, setError] = useState(null);
                     ))}
                 </tbody>
             </table>
-            <Link to="/cohorts/create" className="btn btn-secondary">Create New</Link>
+           
+
         </div>
     );
 };

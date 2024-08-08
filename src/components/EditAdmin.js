@@ -1,19 +1,38 @@
-// src/components/CreateAdmin.jsx
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from './axiosInstance'; 
+import { useNavigate , useParams} from 'react-router-dom';
 
-const CreateAdmin = () => {
+const EditAdmin = () => {
+    const { userId } = useParams();
     const navigate = useNavigate();
-    const [Message, setMessage] = useState('');
-
+    const [message, setMessage] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
+
+    useEffect(() => {
+        const fetchAdminData = async () => {
+            try {
+                const response = await axiosInstance.get(`admin/${userId}`);
+                setFormData({
+                    name: response.data.name,
+                    email: response.data.email,
+                    password : response.data.password,
+                    password_confirmation : response.data.password_confirmation
+                    // password: '',
+                    // password_confirmation: '',
+                });
+            } catch (error) {
+                setMessage('Error fetching user data');
+            }
+        };
+    
+        fetchAdminData();
+    }, [userId]);
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,23 +41,21 @@ const CreateAdmin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //const data = formData;
-            await axiosInstance.post('/register', formData);
+            await axiosInstance.put(`/admin/edit/${userId}`, formData);
             navigate('/cohorts/index');
         } catch (error) {
             if (error.response && error.response.status === 422) {
-                console.log(error.response.data.errors);
                 setMessage('Validation failed: ' + JSON.stringify(error.response.data.errors));
             } else {
-                setMessage('Error submitting registration');
+                setMessage('Error updating user information');
             }
         }
     };
-    
 
     return (
         <div className="container mt-5">
-            <h2>Create Admin</h2>
+            <h2>Edit Admin Information</h2>
+            {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name:</label>
@@ -65,7 +82,7 @@ const CreateAdmin = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password:</label>
+                    <label htmlFor="password" className="form-label">Password (leave blank to keep current password):</label>
                     <input
                         type="password"
                         className="form-control"
@@ -73,7 +90,6 @@ const CreateAdmin = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -85,13 +101,12 @@ const CreateAdmin = () => {
                         name="password_confirmation"
                         value={formData.password_confirmation}
                         onChange={handleChange}
-                        required
                     />
                 </div>
-                <button type="submit" className="btn btn-secondary">Submit</button>
+                <button type="submit" className="btn btn-secondary">Update</button>
             </form>
         </div>
     );
 };
 
-export default CreateAdmin;
+export default EditAdmin;

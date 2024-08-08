@@ -20,6 +20,8 @@ const Login = () => {
                 token_name: 'login-token'
             });
             localStorage.setItem('authToken', response.data.token);
+            localStorage.setItem('userId', response.data.userId);
+            console.log('Stored userId:', response.data.userId); 
 
             console.log('Admin logged in successfully:', response.data);
             setError('');

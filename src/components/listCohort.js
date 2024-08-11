@@ -52,10 +52,15 @@ const [error, setError] = useState(null);
             }
         })
             .then(response => {
-                setCohorts(response.data);
+                setCohorts(response.data);                
+
             })
             .catch(error => {
                 console.error('Error fetching cohorts:', error);
+                console.error('Unauthorized access or account deleted. Redirecting to login...');
+                localStorage.removeItem('authToken'); // remove the token                
+                window.location.href = '/'; // Redirect to the login page
+
             });
     };
 

@@ -1,5 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
 import { Suspense, lazy } from 'react';
 
@@ -44,6 +45,7 @@ import CreateComment from './components/CreateComment.js';
 import ListComment from './components/ListComment.js';
 import DashboardRedirect from './components/DashboardRedirect.js';
 import EditAdmin from './components/EditAdmin.js';
+import FilterApplicants from './components/FilterApplicants.js';
 const Login = lazy (() => import ( './components/Login.js'));
 // import Register from './js/Pages/Auth/Register';
 // import ForgotPassword from './js/Pages/Auth/ForgotPassword';
@@ -71,6 +73,7 @@ const Login = lazy (() => import ( './components/Login.js'));
          <Route path="/admins/register" element={<CreateAdmin />} />
          <Route path="/admin/edit/:userId" element={<EditAdmin />} />
          <Route path="/admins/login" element={<Login />} />
+         <Route path="/applicants/filter" element={<FilterApplicants/>} />
 
          <Route path="/comments/create/:applicant_id/:round_id/:round_type" element={<CreateComment />} />
          <Route path="/comments/:id" element={<ListComment />} />

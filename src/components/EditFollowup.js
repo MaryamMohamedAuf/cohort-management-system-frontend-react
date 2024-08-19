@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
@@ -8,32 +7,33 @@ const EditFollowup = () => {
   const navigate = useNavigate();
    const [cohortId, setCohortId] = useState(null);
   const [formData, setFormData] = useState({
-    survey_tag: '',
-    date: '',
-    status: '',
-    applicant_name: '', 
-         company_name:'',
-         cohort_tag: '' 
+   
+         applicant_name: '',
+         cohort_tag: '',
+         company_name: '',
+         survey_tag: '',
+         date: '',
+         status: ''
   });
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState('');
 
   useEffect(() => {
-    axiosInstance.get(`http://localhost:8000/api/followupSurvey/${id}`)
+    axiosInstance.get(`/followupSurvey/${id}`)
       .then(response => {
         console.log(response.data);
         const data = response.data;       
-        setCohortId(data.cohort_id);
-        const date = data.date || '';
+        setCohortId(data.followup.cohort_id);
+        const date = data.followup.date || '';
        // const formattedDate = response.data.date.split(' ')[0];
         const formattedDate = typeof date === 'string' && date.split(' ')[0] || '';
         setFormData({
            applicant_name: response.data.survey.applicant_name,
           cohort_tag: response.data.survey.cohort_tag,
           company_name: response.data.survey.company_name,
-          survey_tag: response.data.survey_tag,
+          survey_tag: response.data.followup.survey_tag,
           date: formattedDate,
-          status: response.data.status
+          status: response.data.followup.status
         });
         setLoading(false);
       })
@@ -53,7 +53,7 @@ const EditFollowup = () => {
 // }
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance.put(`http://localhost:8000/api/followupSurvey/${id}`, formData, {
+    axiosInstance.put(`followupSurvey/${id}`, formData, {
       headers: {
        // 'Authorization': `Bearer ${getAuthToken()}`,
         'Content-Type': 'application/json',

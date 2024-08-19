@@ -22,8 +22,7 @@ const EditAdmin = () => {
                     email: response.data.email,
                     password : response.data.password,
                     password_confirmation : response.data.password_confirmation
-                    // password: '',
-                    // password_confirmation: '',
+                    
                 });
             } catch (error) {
                 setMessage('Error fetching user data');

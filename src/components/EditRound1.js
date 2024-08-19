@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
@@ -47,10 +46,12 @@ const [formData, setFormData] = useState({
   useEffect(() => {
     const fetchApplicantData = async () => {
       try {
-        const response = await axiosInstance.get(`http://localhost:8000/api/round1/${id}`);
+        const response = await axiosInstance.get(`round1/${id}`);
        // setApplicantData(response.data.applicant);              
        // setFormData(response.data);   
-const data = response.data;       
+const data = response.data;  
+console.log(response.data);
+
 setCohortId(data.applicant.cohort_id);
         setFormData({
           first_name: data.applicant.first_name || '',
@@ -120,7 +121,7 @@ setCohortId(data.applicant.cohort_id);
     e.preventDefault();
     console.log('Submitting data:', formData);
     try {
-      const response = await axiosInstance.put(`http://localhost:8000/api/round1/${id}`, formData);
+      const response = await axiosInstance.put(`/round1/${id}`, formData);
       console.log('Data updated successfully', response.data);
       navigate(`/round1/${cohortId}`);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance'; 
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditCohort = () => {
@@ -13,9 +13,11 @@ const EditCohort = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/cohorts/${id}`)
+    axiosInstance.get(`cohorts/${id}`)
       .then(response => {
         setCohort(response.data);
+        console.log('cohort:', response.data);
+
         setLoading(false);
       })
       .catch(error => {
@@ -26,8 +28,8 @@ const EditCohort = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:8000/api/cohorts/${id}`, cohort)
-      .then(() => navigate('/cohorts'))
+    axiosInstance.put(`cohorts/${id}`, cohort)
+      .then(() => navigate('/cohorts/index'))
       .catch(error => console.error('Error updating cohort:', error));
   };
 

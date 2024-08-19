@@ -18,16 +18,20 @@ const EditOnboarding = () => {
    const [cohortId, setCohortId] = useState(null);
     const [errors, setErrors] = useState('');
     useEffect(() => {
-        axiosInstance.get(`http://localhost:8000/api/onboardingSurvey/${id}`)
+        axiosInstance.get(`onboardingSurvey/${id}`)
             .then(response => {
                 console.log(response.data);
-                setCohortId(response.data.cohort_id);
-                const material_due = response.data.material_due || '';
+                setCohortId(response.data.onboardingSurvey.cohort_id);
+            // Ensure that the fields exist in the response
+            const onboardingSurvey = response.data.onboardingSurvey || {};
+            const survey = response.data.survey || {};
+
+                const material_due = response.data.onboardingSurvey.material_due || '';
                 const formattedDate = typeof material_due === 'string' && material_due.split(' ')[0] || '';
                // const formattedDate = response.data.material_due.split(' ')[0];
                 setFormData({
-                    email: response.data.email,
-                    phone: response.data.phone,
+                    email: response.data.onboardingSurvey.email,
+                    phone: response.data.onboardingSurvey.phone,
                     material_due: formattedDate,
                     applicant_name: response.data.survey.applicant_name,
                     cohort_tag: response.data.survey.cohort_tag ,
@@ -51,7 +55,7 @@ const EditOnboarding = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        axiosInstance.put(`http://localhost:8000/api/onboardingSurvey/${id}`, formData, {
+        axiosInstance.put(`onboardingSurvey/${id}`, formData, {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`,
                 'Content-Type': 'application/json',

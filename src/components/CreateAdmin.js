@@ -37,6 +37,17 @@ const CreateAdmin = () => {
     
 
     return (
+       
+        // @if ($errors->any())
+        //     <div class="alert alert-danger">
+        //         <ul>
+        //             @foreach ($errors->all() as $error)
+        //                 <li>{{ $error }}</li>
+        //             @endforeach
+        //         </ul>
+        //     </div>
+        // @endif
+
         <div className="container mt-5">
             <h2>Create Admin</h2>
             <form onSubmit={handleSubmit}>

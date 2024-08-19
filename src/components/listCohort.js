@@ -5,10 +5,7 @@ import axiosInstance from './axiosInstance';
 
 const ListCohort = () => {
     const [cohorts, setCohorts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    
-const [error, setError] = useState(null);
-    useEffect(() => {
+        useEffect(() => {
         const fetchCohorts = async () => {
             try {
                 const token = localStorage.getItem('authToken');
@@ -31,17 +28,6 @@ const [error, setError] = useState(null);
         fetchCohorts();
     }, []);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/api/cohorts')
-    //         .then(response => {
-    //             setCohorts(response.data)
-                
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching cohorts:', error);
-    //         });
-    // }, []);
-
     function getAuthToken() {
         return localStorage.getItem('authToken');
     }
@@ -60,13 +46,12 @@ const [error, setError] = useState(null);
                 console.error('Unauthorized access or account deleted. Redirecting to login...');
                 localStorage.removeItem('authToken'); // remove the token                
                 window.location.href = '/'; // Redirect to the login page
-
             });
     };
 
     const deleteCohort = (id) => {
         if (window.confirm('Are you sure you want to delete this cohort?')) {
-            axiosInstance.delete(`http://localhost:8000/api/cohorts/${id}`)
+            axiosInstance.delete(`cohorts/${id}`)
                 .then(() => {
                     fetchCohorts(); // Refresh the list after deletion
                 })
@@ -79,7 +64,7 @@ const [error, setError] = useState(null);
     console.log('Retrieved userId:', userId);
     const deleteAdmin = (id) => {
         if (window.confirm('Are you sure you want to delete your account?')) {
-            axiosInstance.delete(`http://localhost:8000/api/admin/${id}`)
+            axiosInstance.delete(`/admin/${id}`)
                 .then(() => {
                     fetchCohorts(); // Refresh the list after deletion
                 })
@@ -93,6 +78,8 @@ const [error, setError] = useState(null);
              <Link to="/cohorts/create" className="btn btn-secondary">Create New Cohort</Link>
             <Link to="/admins/register" className="btn btn-secondary m-2">Add New Admin</Link>
             <Link to={`/admin/edit/${userId}`} className="btn btn-secondary m-2">Edit Your Info</Link>
+            <Link to={`/applicants/filter`} className="btn btn-secondary m-2">query applicants</Link>
+
             <button onClick={() => deleteAdmin(userId)} className="btn btn-danger btn-sm">delete your account?</button>
 
             <h2 className="my-4">List of Cohorts</h2>

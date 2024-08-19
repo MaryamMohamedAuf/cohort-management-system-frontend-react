@@ -19,7 +19,7 @@ const CreateRound3 = () => {
 
   const fetchApplicants = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8000/api/applicants');
+      const response = await axiosInstance.get('/applicants');
       setApplicants(response.data);
     } catch (error) {
       console.error('Error fetching applicants:', error);
@@ -44,12 +44,12 @@ const CreateRound3 = () => {
         
       };
       
-      const response = await axiosInstance.post('http://localhost:8000/api/round3', requestData)
+      const response = await axiosInstance.post('round3', requestData)
       .then(response => {
         console.log('Data saved successfully:', response.data);
         console.log('API Response:', response.data);
 
-        const newCohortId = response.data?.round3?.cohort_id; // assuming the API response contains the cohort_id
+        const newCohortId = response.data?.round3?.cohort_id;
         
         if (newCohortId) {
             navigate(`/round3/${newCohortId}`); 

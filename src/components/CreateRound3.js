@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
-
 
 const CreateRound3 = () => {
   const navigate = useNavigate();
@@ -11,21 +9,21 @@ const CreateRound3 = () => {
   const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [finalDecision, setFinalDecision] = useState(false);
   const [recordedMeetingLink, setRecordedMeetingLink] = useState('');
-  const [cohortId, setCohortId] = useState(null);
-
+  //const [cohortId, setCohortId] = useState(null);
   useEffect(() => {
+    const fetchApplicants = async () => {
+      try {
+        const response = await axiosInstance.get('applicants');
+        console.log('API Response Data:', response.data); // Debugging log
+        setApplicants(response.data);
+      } catch (error) {
+        console.error('Error fetching applicants:', error);
+      }
+    };
+
     fetchApplicants();
   }, []);
-
-  const fetchApplicants = async () => {
-    try {
-      const response = await axiosInstance.get('/applicants');
-      setApplicants(response.data);
-    } catch (error) {
-      console.error('Error fetching applicants:', error);
-    }
-  };
-
+ 
   const handleApplicantChange = (selectedOption) => {
     setSelectedApplicant(selectedOption);
   };
@@ -41,37 +39,29 @@ const CreateRound3 = () => {
         applicant_id: selectedApplicant.value,
         final_decision: finalDecision,
         recorded_meeting_link: recordedMeetingLink,
-        
       };
-      
-      const response = await axiosInstance.post('round3', requestData)
-      .then(response => {
-        console.log('Data saved successfully:', response.data);
-        console.log('API Response:', response.data);
+      console.log('Request Data:', requestData); // Log the request data
 
-        const newCohortId = response.data?.round3?.cohort_id;
-        
-        if (newCohortId) {
-            navigate(`/round3/${newCohortId}`); 
-        } else {
-            console.error('Cohort ID is missing in the response');
-        }
-
-    })
-     
-    } catch (error) {
-      console.error('Error saving data:', error);
+    const response = await axiosInstance.post('round3', requestData);
+    console.log('Data saved successfully:', response.data);
+    const newCohortId = response.data?.round3?.cohort_id;
+    if (newCohortId) {
+        navigate(`/round3/${newCohortId}`); 
+    } else {
+        console.error('Cohort ID is missing in the response');
     }
+  } catch (error) {
+    console.error('Error saving data:', error.response ? error.response.data : error.message);
+  }
   };
-  
   const applicantOptions = applicants.map(applicant => ({
-    value: applicant.id,
-    label: applicant.company_name,
+    value: applicant.id||'no id',
+    label: applicant.company_name?.trim() ||'no compamy name',
   }));
+  console.log('Applicant options:', applicantOptions);
 
   return (
     <div className="container mt-5">
-
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="applicant">Applicant Company Name</label>
@@ -118,6 +108,7 @@ const CreateRound3 = () => {
           className="form-control"
         />
       </div>
+
       <button type="submit" className="btn btn-secondary m-3">Submit</button>
     </form>
 

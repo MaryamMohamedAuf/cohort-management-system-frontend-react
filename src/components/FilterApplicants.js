@@ -18,7 +18,14 @@ const FilterApplicants = () => {
             try {
                 const response = await axiosInstance.get('filter-options');
                 console.log('Filter Options:', response.data); // Debugging
+                const fetchedApplicants = Array.isArray(response.data) ? response.data : [];
 
+                // Apply search term filtering (this works on the full dataset)
+                const filteredApplicants = fetchedApplicants.filter(applicant => 
+                    matchesSearchTerm(applicant, searchTerm.toLowerCase())
+                );
+    
+                setApplicants(filteredApplicants);
                 setFilterOptions(response.data.original.original);
             } catch (err) {
                 setError('Failed to fetch filter options.');
@@ -28,16 +35,47 @@ const FilterApplicants = () => {
 
         fetchFilterOptions();
     }, []);
+    //it runs once when the component first mounts because the second argument is an empty array [].
+    //const searchTerm = searchTerm.toLowerCase();
+
+    // Function to search through the applicant object and its related data
+    const matchesSearchTerm = (applicant, term) => {
+ //checkObject is a helper function that recursively checks if any value in an object matches the search term.
+        const checkObject = (obj) => {
+            return Object.values(obj).some(value => {
+                if (typeof value === 'string') {
+                    return value.toLowerCase().includes(term);
+                } else if (typeof value === 'object' && value !== null) {
+                    return checkObject(value);
+                }
+                return false;
+            });
+        };
+    
+        return checkObject(applicant);
+    };
+    
+
+
 
     // Fetch applicants whenever filters change or initially load all applicants if no filters are selected
+   // runs whenever filters or searchTerm changes. It fetches applicants based on the current filters and search term.
     useEffect(() => {
         const fetchApplicants = async () => {
             try {
                 const response = await axiosInstance.post('applicants/filter', filters, { ...filters, search: searchTerm });
                 console.log('Applicants:', response.data); // Debugging
 
-                // Ensure the response is an array
-                setApplicants(Array.isArray(response.data) ? response.data : []);
+                // Apply search term filtering
+                const fetchedApplicants = Array.isArray(response.data) ? response.data : [];
+
+                // Apply search term filtering
+                const filteredApplicants = fetchedApplicants.filter(applicant => 
+                    matchesSearchTerm(applicant, searchTerm.toLowerCase())
+                );
+
+                setApplicants(filteredApplicants);
+               // setApplicants(Array.isArray(response.data) ? response.data : [])
             } catch (err) {
                 setError('Failed to fetch applicants.');
                 console.error(err);
@@ -59,6 +97,13 @@ const FilterApplicants = () => {
             <aside className="sidebar">
                 <h2>Filters</h2>
                 {error && <p>{error}</p>}
+                 {/* Search input */}
+                 <input
+                    type="search"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    placeholder="Search applicants..."
+                />
                 {/* Render filter controls */}
                 {Object.keys(filterOptions).map((filter) => (
                     <div key={filter}>

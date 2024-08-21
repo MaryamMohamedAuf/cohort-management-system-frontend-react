@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
 const ListCohort = () => {
     const [cohorts, setCohorts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
         useEffect(() => {
         const fetchCohorts = async () => {
             try {
@@ -12,11 +13,7 @@ const ListCohort = () => {
                 if (!token) {
                     throw new Error('No token found');
                 }
-                const response = await axios.get('http://localhost:8000/api/cohorts', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const response = await axiosInstance.get('cohorts');
                 setCohorts(response.data);
             } catch (err) {
                 setError(err);
@@ -28,15 +25,9 @@ const ListCohort = () => {
         fetchCohorts();
     }, []);
 
-    function getAuthToken() {
-        return localStorage.getItem('authToken');
-    }
+    
     const fetchCohorts = () => {
-        axios.get('http://localhost:8000/api/cohorts', {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`
-            }
-        })
+        axiosInstance.get('/cohorts')
             .then(response => {
                 setCohorts(response.data);                
 

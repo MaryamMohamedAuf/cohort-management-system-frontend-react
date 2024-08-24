@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-
+import axiosInstance from './axiosInstance'; 
 const CreateRound2 = () => {
-    const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-  //  const [cohortId, setCohortId] = useState(null);
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -475,7 +471,7 @@ const CreateRound2 = () => {
             core_team_members: parseInt(formData.core_team_members),
         };
 
-        axios.post('http://localhost:8000/api/round2/create', formattedData)
+        axiosInstance.post('round2/create', formattedData)
             .then(response => {
                 console.log('Data saved successfully:', response.data);
                 console.log('API Response:', response.data);

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
 
 const CreateRound1 = () => {
-  const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
@@ -59,17 +57,9 @@ const CreateRound1 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/round1/create', formData);
+      const response = await axiosInstance.post('round1/create', formData);
       console.log('Data saved successfully', response.data);
-      //const newCohortId = response.data?.round1?.cohort_id; 
                 setSuccessMessage('data saved successfully will get in touch with you soon')
-
-      // if (newCohortId) {
-      //   //  navigate(`/round1/${newCohortId}`); 
-
-      // } else {
-      //     console.error('Cohort ID is missing in the response');
-      // }
     } catch (error) {
         console.error('Error saving data', error.response ? error.response.data : error.message);
         setErrorMessage('There was an error saving the data. Please please make sure all required fields are filled.');

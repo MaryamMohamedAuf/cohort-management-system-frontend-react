@@ -12,7 +12,7 @@ const ListComment = () => {
     const fetchComments = async () => {
       try {
         console.log('Fetching comments for applicant_id:', applicant_id);
-        const response = await axiosInstance.get(`http://localhost:8000/api/comments/applicant/${id}`);
+        const response = await axiosInstance.get(`comments/applicant/${id}`);
         console.log('Response data:', response.data);
         setComments(response.data);
       } catch (error) {

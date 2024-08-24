@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import axiosInstance from './axiosInstance'; 
 
 const CreateFollowup = () => {
     // Correct placement of useState hooks inside the component
@@ -15,30 +14,16 @@ const CreateFollowup = () => {
         cohort_tag: ''
     });
     const [errors, setErrors] = useState('');
-
-    const navigate = useNavigate();
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/followupSurvey/create', formData, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        axiosInstance.post('followupSurvey/create', formData)
         .then(response => {
             console.log('Follow-up survey created successfully:', response.data);
             setSuccessMessage('Data saved successfully. We will get in touch with you soon.');
-            // Uncomment and use if you have a cohort ID in the response
-            // const newCohortId = response.data?.followup_survey?.cohort_id; 
-            // if (newCohortId) {
-            //     navigate(`/followup/${newCohortId}`);
-            // } else {
-            //     console.error('Cohort ID is missing in the response');
-            // }
         })
         .catch(error => {
             console.error('Error creating follow-up survey:', error);

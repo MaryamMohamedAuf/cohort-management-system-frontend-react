@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import axiosInstance from './axiosInstance'; 
 
 const EditRound3 = () => {
@@ -23,7 +21,7 @@ const EditRound3 = () => {
 
   const fetchApplicants = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8000/api/applicants');
+      const response = await axiosInstance.get('applicants');
       setApplicants(response.data);
     } catch (error) {
       console.error('Error fetching applicants:', error);
@@ -32,7 +30,7 @@ const EditRound3 = () => {
 
   const fetchRound3Details = async () => {
     try {
-      const response = await axiosInstance.get(`http://localhost:8000/api/round3/${id}`);
+      const response = await axiosInstance.get(`round3/${id}`);
       const round3 = response.data;
       console.log('Fetched round3 details:', round3);
 
@@ -62,7 +60,7 @@ const EditRound3 = () => {
         final_decision: finalDecision,
         recorded_meeting_link: recordedMeetingLink,
       };
-      await axiosInstance.put(`http://localhost:8000/api/round3/${id}`, requestData);
+      await axiosInstance.put(`round3/${id}`, requestData);
       navigate(`/round3/${cohortId}`); // Navigate to round3/cohortId
 
     } catch (error) {

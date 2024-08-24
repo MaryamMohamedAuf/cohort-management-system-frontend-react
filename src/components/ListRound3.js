@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {  useParams } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 import { Link } from 'react-router-dom';
@@ -13,7 +12,7 @@ const ListRound3 = () => {
     }, [cohortId]);
 
     const fetchRound3Data = () => {
-        axiosInstance.get(`http://localhost:8000/api/round3/getByCohort/${cohortId}`)
+        axiosInstance.get(`round3/getByCohort/${cohortId}`)
             .then(response => {
                 setRound3Data(response.data);
             })
@@ -24,7 +23,7 @@ const ListRound3 = () => {
 
     const deleteRound3 = (id) => {
         if (window.confirm('Are you sure you want to delete this entry?')) {
-            axiosInstance.delete(`http://localhost:8000/api/round3/${id}`)
+            axiosInstance.delete(`/round3/${id}`)
                 .then(() => {
                     fetchRound3Data(); // Refresh the list after deletion
                 })

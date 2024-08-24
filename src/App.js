@@ -13,8 +13,6 @@ import { Suspense, lazy } from 'react';
  //import SvgComponent from './components/svg.js';
  
  import ApplicantDetails from './components/ApplicantDetails.js';
- import ListApplicant from './components/listApplicant.js';
- import SvgComponent from './components/svg.js';
 
  import EditCohort from './components/EditCohort.js';
  import EditFollowup from './components/EditFollowup.js';
@@ -47,13 +45,7 @@ import DashboardRedirect from './components/DashboardRedirect.js';
 import EditAdmin from './components/EditAdmin.js';
 import FilterApplicants from './components/FilterApplicants.js';
 const Login = lazy (() => import ( './components/Login.js'));
-// import Register from './js/Pages/Auth/Register';
-// import ForgotPassword from './js/Pages/Auth/ForgotPassword';
-// import ResetPassword from './js/Pages/Auth/ResetPassword';
-// import VerifyEmail from '.js/Pages/Auth/VerifyEmail';
-// import Dashboard from '.js/Pages/Dashboard';
-// import GuestLayout from '.js/Layouts/GuestLayout';
-// import AuthenticatedLayout from '.js/Layouts/AuthenticatedLayout';
+
 //import axiosInstance from './components/axiosInstance.js';
 
  function App() {

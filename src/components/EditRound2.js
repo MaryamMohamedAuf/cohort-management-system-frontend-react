@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
@@ -54,7 +53,7 @@ const EditRound2 = () => {
     useEffect(() => {
         const fetchRound2Data = async () => {
           try {
-            const response = await axiosInstance.get(`http://localhost:8000/api/round2/${id}`);
+            const response = await axiosInstance.get(`round2/${id}`);
             const data = response.data;
             setCohortId(data.applicant.cohort_id);
             setFormData({
@@ -542,7 +541,7 @@ const EditRound2 = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axiosInstance.put(`http://localhost:8000/api/round2/${id}`, formData)
+        axiosInstance.put(`round2/${id}`, formData)
             .then(() => {
              navigate(`/round2/${cohortId}`);
             })

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance'; 
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/api/login', {
+            const response = await axiosInstance.post('/login', {
                 email: email,
                 password: password,
                 token_name: 'login-token'

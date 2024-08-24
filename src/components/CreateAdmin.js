@@ -23,7 +23,7 @@ const CreateAdmin = () => {
         e.preventDefault();
         try {
             //const data = formData;
-            await axiosInstance.post('/register', formData);
+            await axios.post('http://localhost:8000/api/register', formData);
             navigate('/cohorts/index');
         } catch (error) {
             if (error.response && error.response.status === 422) {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance'; 
+
 import { useNavigate } from 'react-router-dom';
 
 const CreateCohort = () => {
@@ -16,17 +17,10 @@ const CreateCohort = () => {
     };
 
     //const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    function getAuthToken() {
-        return localStorage.getItem('authToken');
-    }
+  
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/cohorts', formData, {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json',
-            },
-        })
+        axiosInstance.post('/cohorts', formData,)
             .then(response => {
                 console.log('Cohort created successfully:', response.data);
                 

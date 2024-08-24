@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
@@ -15,7 +14,7 @@ const ListOnboarding = () => {
 
    
     const fetchOnboardingSurveys = () => {
-        axiosInstance.get(`http://localhost:8000/api/onboardingSurvey/getByCohort/${cohortId}`)
+        axiosInstance.get(`onboardingSurvey/getByCohort/${cohortId}`)
             .then(response => {
                 setOnboardingSurveys(response.data);
             })
@@ -26,7 +25,7 @@ const ListOnboarding = () => {
 
     const deleteOnboardingSurvey = (id) => {
         if (window.confirm('Are you sure you want to delete this onboarding survey?')) {
-            axiosInstance.delete(`http://localhost:8000/api/onboardingSurvey/${id}`)
+            axiosInstance.delete(`onboardingSurvey/${id}`)
                 .then(() => {
                     fetchOnboardingSurveys(); // Refresh the list after deletion
                 })

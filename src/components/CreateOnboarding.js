@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import axiosInstance from './axiosInstance'; 
 
 const CreateOnboarding = () => {
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         phone: '',
@@ -24,21 +22,9 @@ const CreateOnboarding = () => {
    
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/onboardingSurvey/create', formData, {
-            headers: {
-                //'Authorization': `Bearer ${getAuthToken()}`,
-              //  'Content-Type': 'application/json',
-            },
-        })
+        axiosInstance.post('onboardingSurvey/create', formData)
             .then(response => {
-                console.log('Onboarding survey created successfully:', response.data);
-                const newCohortId = response.data?.onboarding_survey?.cohort_id; 
-        
-                if (newCohortId) {
-                    navigate(`/onboarding/${newCohortId}`); 
-                } else {
-                    console.error('Cohort ID is missing in the response');
-                }            
+                console.log('Onboarding survey created successfully:', response.data);         
             })
             .catch(error => {
                 console.error('Error creating onboarding survey:', error);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance'; 
 import { useParams } from 'react-router-dom';
 
 const Round2Details = () => {
@@ -7,7 +7,7 @@ const Round2Details = () => {
     const [round2Details, setRound2Details] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/round2/${id}`)
+        axiosInstance.get(`round2/${id}`)
             .then(response => {
                 setRound2Details(response.data);
             })

@@ -24,8 +24,7 @@ h2 {
 
 .login-container label {
     font-family: 'Arial', sans-serif;
-    color: blueviolet;
-    /* #f0c808; */
+    color:#f0c808;
 }
 
 input {

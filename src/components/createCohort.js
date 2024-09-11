@@ -7,7 +7,6 @@ const CreateCohort = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         number: '',
-        name: '',
         start_date: '',
         end_date: '',
     });
@@ -24,18 +23,39 @@ const CreateCohort = () => {
             .then(response => {
                 console.log('Cohort created successfully:', response.data);
                 
-                    navigate(`/cohorts/index`); 
+                   // navigate(`/cohorts/index`); 
                
                 })
             .catch(error => {
                 console.error('Error creating cohort:', error);
             });
+
+            const formEle = document.querySelector("form");
+            const formDatab = new FormData(formEle);
+            fetch(
+"https://script.google.com/macros/s/AKfycby8VYPXtZOJNqao82U0jqFx6uxG5WjaPrQJCvlMy5vzxYY708IG8CbeB5l5qlomyZsk-Q/exec"              ,
+              {
+                method: "POST",
+                body: formDatab,
+                headers: {
+                   // 'Accept': 'application/json',
+                  }
+              }
+              
+            )
+              .then((res) => res.text())
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
     };
 
     return (
         <div className="container mt-5">
             <h2>Create Cohort</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit} >
                 <div className="mb-3">
                     <label htmlFor="number" className="form-label">Number:</label>
                     <input

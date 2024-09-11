@@ -1,6 +1,5 @@
 // src/components/CreateAdmin.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance'; 
 
@@ -23,7 +22,7 @@ const CreateAdmin = () => {
         e.preventDefault();
         try {
             //const data = formData;
-            await axios.post('http://localhost:8000/api/register', formData);
+            await axiosInstance.post('/register', formData);
             navigate('/cohorts/index');
         } catch (error) {
             if (error.response && error.response.status === 422) {

@@ -23,7 +23,7 @@ const CreateAdmin = () => {
         try {
             //const data = formData;
             await axiosInstance.post('/register', formData);
-            navigate('/');
+            navigate('');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -37,17 +37,9 @@ const CreateAdmin = () => {
 
     return (
        
-        // @if ($errors->any())
-        //     <div class="alert alert-danger">
-        //         <ul>
-        //             @foreach ($errors->all() as $error)
-        //                 <li>{{ $error }}</li>
-        //             @endforeach
-        //         </ul>
-        //     </div>
-        // @endif
-
+    
         <div className="container mt-5">
+        
             <h2>Create Admin</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">

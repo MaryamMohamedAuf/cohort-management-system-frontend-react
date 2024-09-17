@@ -23,7 +23,7 @@ const CreateAdmin = () => {
         try {
             //const data = formData;
             await axiosInstance.post('register', formData);
-            navigate('cohort/index');
+            navigate('cohorts/index');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);

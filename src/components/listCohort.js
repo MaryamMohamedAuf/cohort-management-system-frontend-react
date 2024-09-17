@@ -67,7 +67,7 @@ const ListCohort = () => {
     return (
         <div className="container mt-3">
              <Link to="/cohorts/create" className="btn btn-secondary">Create New Cohort</Link>
-            <Link to="/admins/register" className="btn btn-secondary m-2">Add New Admin</Link>
+            {/* <Link to="/admins/register" className="btn btn-secondary m-2">Add New Admin</Link> */}
             <Link to={`/admin/edit/${userId}`} className="btn btn-secondary m-2">Edit Your Info</Link>
             <Link to={`/applicants/filter`} className="btn btn-secondary m-2">query applicants</Link>
 

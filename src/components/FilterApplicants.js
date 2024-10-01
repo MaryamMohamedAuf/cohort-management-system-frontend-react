@@ -56,8 +56,6 @@ const FilterApplicants = () => {
     };
     
 
-
-
     // Fetch applicants whenever filters change or initially load all applicants if no filters are selected
    // runs whenever filters or searchTerm changes. It fetches applicants based on the current filters and search term.
     useEffect(() => {

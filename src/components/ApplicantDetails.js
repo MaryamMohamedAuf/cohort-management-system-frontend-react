@@ -9,7 +9,7 @@ const ApplicantDetails = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axiosInstance.get(`http://localhost:8000/api/applicant/details/${id}`)
+        axiosInstance.get(`/applicant/details/${id}`)
             .then(response => {
                 console.log('API Response:', response.data);
                 setApplicantData(response.data);

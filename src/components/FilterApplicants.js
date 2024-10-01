@@ -157,7 +157,7 @@ const FilterApplicants = () => {
                                     <td>{item.company_name || 'N/A'}</td>
                                     <td>{item.round1?.[0]?.company_website || 'N/A'}</td>
                                     <td>{item.round2?.[0]?.sector || 'N/A'}</td>
-                                    <td>{item.round3?.[0]?.final_decision ?"Accepted":"Rejected"|| 'N/A'}</td>
+                                    <td>{item.round3?.[0]?.final_decision || 'N/A'}</td>
                                     <td>
                                         <Link to={`/applicant/${item.id}`} className="btn btn-secondary btn-sm">See applicant details</Link>
                                     </td> 
